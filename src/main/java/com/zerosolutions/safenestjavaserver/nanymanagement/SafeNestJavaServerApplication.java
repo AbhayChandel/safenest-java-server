@@ -1,4 +1,4 @@
-package com.zerosolutions.safenestjavaserver;
+package com.zerosolutions.safenestjavaserver.nanymanagement;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

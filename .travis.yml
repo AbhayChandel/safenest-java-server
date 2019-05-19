@@ -4,10 +4,9 @@ jdk:
   - oraclejdk8
 script: 
  - mvn install -P test
- - sbt clean coverage test
 
 after_success: 
- - sbt coveralls
+ - mvn jacoco:report coveralls:report
 
 cache:
   directories:

@@ -10,7 +10,9 @@ after_success:
  
 addons:
   sonarcloud:
-    organization: "abhaychandel-github" 
+    organization: "abhaychandel-github"
+    token:
+      secure: "8c21c9c211b1d4ef4e1f95bfdcee0a44a3bac3ee"
 
 cache:
   directories:

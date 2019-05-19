@@ -1,29 +1,44 @@
 package com.zerosolutions.safenestjavaserver.workermanagement;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.Assert.assertThat;
 
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.ResponseEntity;
+
+import java.util.List;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Worker;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class WorkerManagementIT {
 
 	@Autowired
-	private MockMvc mockMvc;
+	ObjectMapper objectMapper;
+	
+	@LocalServerPort
+    private int port;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
 
 	@Test
 	public void testGetAllWorkers() throws Exception {
-		this.mockMvc.perform(get("/v1/worker/getall")).andExpect(status().isOk()).andExpect(jsonPath("$", hasSize(2)));
+		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/getall", String.class);
+		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
+		List<Worker> workerList = this.objectMapper.readValue(responseEntity.getBody(), List.class);
+		assertThat(workerList, hasSize(2));
 	}
 
 }

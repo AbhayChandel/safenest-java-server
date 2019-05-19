@@ -11,7 +11,7 @@ after_success:
  
 addons:
   sonarcloud:
-    organization: "abhaychandel-github"
+    organization: "Abhay Chandel"
     
 script:
   # the following command line builds the project, runs the tests with coverage and then execute the SonarCloud analysis

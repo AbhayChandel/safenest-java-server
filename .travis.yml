@@ -3,19 +3,18 @@ dist: trusty
 jdk:
   - oraclejdk8
 script: 
- - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report package sonar:sonar
+ - mvn sonar:sonar
 
-after_success: 
- - mvn jacoco:report coveralls:report
+
  
 addons:
   sonarcloud:
-    organization: "abhaychandel-github"
+    organization: 'abhaychandel-github'
     token:
-      secure: "8c21c9c211b1d4ef4e1f95bfdcee0a44a3bac3ee"
+      secure: 'd442ac6c91b02d43e6a3883259cef5e9621eef29'
 
 cache:
   directories:
-    - "$HOME/.m2/repository"
-    - "$HOME/.sonar/cache"
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'
 sudo: false

@@ -1,20 +1,19 @@
 language: java
 sudo: false
 install: true
+
 addons:
   sonarcloud:
-    organization: abhaychandel-github
-    token:
-      secure: "MyKkVPVRsIgAd7X+hSnAE4Fz782wAgjDJkEzsDFdFth0SvF4OkEyHWWwAd6GJ11UWOqatgLIPFD/hCnEIOq33DDO9oq6KqtqW0VWr8dZafnK/L7SXMRZ2X75Jj481cmLRDHs0Gt0H1uPiu/j9NET8H8C7v2GWJCW10/OK8hkX9kTzs0w5Pb18Zt4j+8xEG8R9CwZEi9DVUfWy3bJP6gqcJCVL1rnmMHXx5ky5nM1cdlzeYTGkPGfbiRsPFTtQyXJvvGi84VKwySXbtzAVWv3mpWaCIbMOYtyHXq9gGVFd5EkQuEyKXWV92q+zeP+CvJa3iYR9w5/dGYFF0zMvdijgG4iZmKgEUCj0rj6B4VgDIgYAyqLWbKKd7ed+7OSMIqVWMqRal/AbCoU9miP9TxPQQAKppnNhXny8XNpSDTgc9UNmx7O54wdXF5vKPf9SE4Tefvq1uZSf9zG8aW0jhVVAuIMn+/HpiQ2N08jjFggZKvz8OKshVd3PYaQFHkGgeFQ9b4YqghJTqMgEIYvM6mGJt+W8NJky2OV3VgudVt38SJMddy9mw7oYkLe9Scn9FRYY6l1+K3N+Unpt1GdI3LX/VNTElWHLtxFA61tCfXrSjZ1hI3Z+XntXtMOP2xmnssPTasl20Px0EMPWwKTX1dzSKbkgohQVen65y0xXFv5dYw="
+    organization: "abhaychandel-github" 
+
 jdk:
-- oraclejdk8
+  - oraclejdk8
+
 script:
-- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report
-  package sonar:sonar
+  # JaCoCo is used to have code coverage, the agent has to be activated
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.login=${SONAR_TOKEN}
+
 cache:
   directories:
-  - "$HOME/.m2/repository"
-  - "$HOME/.sonar/cache"
-#env:
-#  global:
-#    secure: N5r2AFoU1mYhXhjTcsILVgyNix+YORNZtJP7ltWWVegCpWMJqvMjqGQP71MxDprjuLFFK2OE8zfHZPLXnqkHswa5tPJtLpUI7zTNj4vEhHkuXlUfbIZc32yNZ/Cke9iwJIbw+uEKIn2njGmQQYrOlSrBPRSszpvWSJjiBFwzwo2cbl+6rZa981WRjslwpPXO5vcdKSb3yLY/w9QZo2akDhMg6ZnrsajumQh7DYoYlpAI06waM9I5jd0sS6QYdVCP6dL3TB/yfISxPVAt4+uyd/I3fpMWQ6KYltZlhIqSbHJ45AITalyEiLcz/ri+ckJGFsYMHKQIGMOrF+30qvikcMKBnI3kR821np9RhbtK0GOn7yrQp/ojcYhYbMG205hGNC99sN5NMfyyawCloUsWPPKdj7sTOLdl73TddJfMtoW1qKltqGDi7Y49m3yahL6Z3t3ijs3+vSUAiAMCLKYZFHOoXSAzwk9406o/ClaDlXbMnLSYUGSZz5tSRXPvAEDtHgJk5AIBWhYgL1wAeUOnjhNmFBGtJaeOZ17ICS7zeSAn8i9CpvwjOO2GmYkd7nzc8kmcPDLCt4L55sHlQ2xt6vv7K05jPznuNW6MdIfPvFoTnooIGdcCK9QEapMVCm0kTt+My5008a0C6xm3WLAHd7raYWx3nq9SnYugdFN/o/0=
+    - '$HOME/.m2/repository'
+    - '$HOME/.sonar/cache'

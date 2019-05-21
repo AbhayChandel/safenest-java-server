@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.zerosolutions.safenestjavaserver.workermanagement.business.api.WorkerManagement;
-import com.zerosolutions.safenestjavaserver.workermanagement.common.api.to.WorkerTO;
 import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Worker;
 import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.repository.WorkerRepository;
 

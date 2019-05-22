@@ -12,7 +12,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - 'if [type = push]; then
+  - 'if [ "$TRAVIS_EVENT_TYPE" == "push" ]; then
           mvn clean install;
       else
           mvn clean install -P test;

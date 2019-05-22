@@ -12,12 +12,11 @@ jdk:
   - oraclejdk8
 
 script:
-  - if [ $TRAVIS_PULL_REQUEST == "false" ]; then
-      mvn clean install;
-    fi
-    - if [ $TRAVIS_PULL_REQUEST != "false" ]; then
-      mvn clean install -P test;
-    fi
+  - 'if [type = push]; then
+          mvn clean install;
+      else
+          mvn clean install -P test;
+      fi' 
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report package sonar:sonar
 
 cache:

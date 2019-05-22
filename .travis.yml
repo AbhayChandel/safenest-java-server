@@ -12,7 +12,11 @@ jdk:
   - oraclejdk8
 
 script:
-  # JaCoCo is used to have code coverage, the agent has to be activated
+  - 'if [ "$TRAVIS_EVENT_TYPE" == "push" ]; then
+          mvn clean install;
+      else
+          mvn clean install -P test;
+      fi' 
   - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent org.jacoco:jacoco-maven-plugin:report package sonar:sonar
 
 cache:

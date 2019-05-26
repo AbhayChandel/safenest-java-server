@@ -1,10 +1,9 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.services.impl.rest;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,5 +39,14 @@ public class WorkerRestServiceImplTest {
 		this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/getall")).andExpect(status().isOk())
 				.andExpect(jsonPath("$", hasSize(2)));
 	}
+
+	@Test
+	public void testWorkerBookedSuccessMessageIsReturned() throws Exception {
+		when(this.workerManagement.bookWorker(1)).thenReturn("Worker booked successfully.");
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/book/1")).andExpect(status().isOk())
+				.andExpect(content().string("Worker booked successfully."));
+	}
+
+
 
 }

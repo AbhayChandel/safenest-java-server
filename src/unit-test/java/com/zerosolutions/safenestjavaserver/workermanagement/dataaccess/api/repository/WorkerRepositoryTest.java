@@ -1,7 +1,7 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.repository;
 
-import static org.junit.Assert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -24,5 +24,14 @@ public class WorkerRepositoryTest {
 	public void testFindAll() {
 		List<Worker> workerList = workerRepository.findAll();
 		assertThat(workerList, hasSize(2));
+	}
+
+	@Test
+	public void testWorkerBooked(){
+		Worker worker = workerRepository.getOne(1L);
+		assertFalse(worker.isBooked());
+		worker.setBooked(true);
+		worker = workerRepository.save(worker);
+		assertTrue(worker.isBooked());
 	}
 }

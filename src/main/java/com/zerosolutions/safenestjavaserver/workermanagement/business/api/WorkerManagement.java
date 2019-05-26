@@ -6,4 +6,6 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.enti
 public interface WorkerManagement {
 
 	public List<Worker> getAllWorkers();
+
+    String bookWorker(long id);
 }

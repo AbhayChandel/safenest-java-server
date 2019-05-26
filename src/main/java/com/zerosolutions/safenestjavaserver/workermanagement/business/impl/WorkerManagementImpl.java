@@ -20,4 +20,15 @@ public class WorkerManagementImpl implements WorkerManagement {
 		return workerRepository.findAll();
 	}
 
+	@Override
+	public String bookWorker(long id) {
+		Worker worker = workerRepository.getOne(id);
+		worker.setBooked(true);
+		worker = workerRepository.save(worker);
+		if(worker.isBooked()){
+			return "Worker booked successfully.";
+		}
+		return null;
+	}
+
 }

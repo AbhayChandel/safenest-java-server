@@ -1,8 +1,9 @@
 package com.zerosolutions.safenestjavaserver.workermanagement;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -41,4 +42,10 @@ public class WorkerManagementIT {
 		assertThat(workerList, hasSize(2));
 	}
 
+	@Test
+	public void testWorkerBookingSuccessful() throws Exception{
+		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/book/1", String.class);
+		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
+		assertEquals("Worker booked successfully.", responseEntity.getBody());
+	}
 }

@@ -1,5 +1,6 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.business.impl;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
@@ -29,7 +30,7 @@ public class WorkerManagementImplTest {
 	WorkerRepository workerRepository;
 
 	@Test
-	public void testGetAllNannies() {
+	public void testGetAllWorkers() {
 
 		List<Worker> workers = new ArrayList<Worker>();
 		workers.add(new Worker(1L));
@@ -37,5 +38,16 @@ public class WorkerManagementImplTest {
 		when(this.workerRepository.findAll()).thenReturn(workers);
 		List<Worker> workerList = workerManagement.getAllWorkers();
 		assertThat(workerList, hasSize(2));
+	}
+
+	@Test
+	public void testWorkerBookedSuccessfully(){
+		Worker workerNotBooked = new Worker(1L);
+		Worker workerBooked = new Worker(1L);
+		workerBooked.setBooked(true);
+		when(this.workerRepository.getOne(1L)).thenReturn(workerNotBooked);
+		when(this.workerRepository.save(workerNotBooked)).thenReturn(workerBooked);
+		String message = workerManagement.bookWorker(1L);
+		assertEquals("Worker booked successfully.", message);
 	}
 }

@@ -18,4 +18,9 @@ public class WorkerRestServiceImpl implements WorkerRestService {
 	public List<Worker> getAllWorkers(){
 		return workerManagement.getAllWorkers(); 
 	}
+
+	@Override
+	public String bookWorker(int id) {
+		return this.workerManagement.bookWorker(id);
+	}
 }

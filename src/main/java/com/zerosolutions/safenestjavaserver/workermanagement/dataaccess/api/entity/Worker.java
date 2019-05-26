@@ -1,5 +1,6 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -8,6 +9,9 @@ public class Worker {
 	
 	@Id
 	private long id;
+
+	@Column(name = "is_booked")
+	private boolean booked;
 	
 	public Worker() {}
 	
@@ -19,4 +23,11 @@ public class Worker {
 		return id;
 	}
 
+	public boolean isBooked() {
+		return booked;
+	}
+
+	public void setBooked(boolean booked) {
+		this.booked = booked;
+	}
 }

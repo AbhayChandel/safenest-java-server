@@ -10,7 +10,7 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.enti
 @RequestMapping("/v1/worker")
 public interface WorkerRestService {
 
-	@GetMapping("/getall")
+	@GetMapping("/")
 	public List<Worker> getAllWorkers();
 
 	@GetMapping("/{id}")

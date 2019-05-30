@@ -35,7 +35,7 @@ public class WorkerManagementIT {
 
 	@Test
 	public void testGetAllWorkers() throws Exception {
-		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/getall", String.class);
+		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/", String.class);
 		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
 		List<Worker> workerList = this.objectMapper.readValue(responseEntity.getBody(), List.class);
 		assertTrue(workerList.size() >= 3);

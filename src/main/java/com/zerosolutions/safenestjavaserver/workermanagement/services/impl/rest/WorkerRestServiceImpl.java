@@ -14,13 +14,21 @@ public class WorkerRestServiceImpl implements WorkerRestService {
 
 	@Autowired
 	WorkerManagement workerManagement;
-	
+
+	@Override
 	public List<Worker> getAllWorkers(){
-		return workerManagement.getAllWorkers(); 
+		return workerManagement.findAllWorkers();
 	}
 
 	@Override
-	public String bookWorker(int id) {
-		return this.workerManagement.bookWorker(id);
+	public Worker getOneWorker(long id)
+	{
+		Worker worker = workerManagement.findWorkerById(id);
+		return worker;
+	}
+
+	@Override
+	public Worker createWorker() {
+		return workerManagement.createWorker();
 	}
 }

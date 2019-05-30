@@ -3,6 +3,8 @@ package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.rep
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -23,15 +25,34 @@ public class WorkerRepositoryTest {
 	@Test
 	public void testFindAll() {
 		List<Worker> workerList = workerRepository.findAll();
-		assertThat(workerList, hasSize(2));
+		assertThat(workerList, hasSize(3));
 	}
 
 	@Test
-	public void testWorkerBooked(){
-		Worker worker = workerRepository.getOne(1L);
-		assertFalse(worker.isBooked());
-		worker.setBooked(true);
+	public void testFindWorkerById() {
+		assertEquals(Long.valueOf(2), workerRepository.findById(2L).get().getId());
+	}
+
+	@Test
+	public void testCreatingNewWorker(){
+		Worker worker = new Worker();
 		worker = workerRepository.save(worker);
-		assertTrue(worker.isBooked());
+		assertNotEquals(Long.valueOf(0), worker.getId());
+	}
+
+	@Test
+	public void testDeletingWorker(){
+		Worker worker = workerRepository.findById(1L).get();
+		workerRepository.delete(worker);
+		assertFalse(workerRepository.findById(1L).isPresent());
+	}
+
+	@Test
+	public void testSettingWorkerHasJobBookings(){
+		Worker worker = workerRepository.findById(1L).get();
+		assertFalse(worker.hasBookings());
+		worker.setHasBookings(true);
+		worker = workerRepository.save(worker);
+		assertTrue(worker.hasBookings());
 	}
 }

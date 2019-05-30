@@ -1,33 +1,51 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.zerosolutions.safenestjavaserver.jobmanagement.dataaccess.api.entity.Job;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Table(name = "worker")
 public class Worker {
-	
-	@Id
-	private long id;
 
-	@Column(name = "is_booked")
-	private boolean booked;
-	
-	public Worker() {}
-	
-	public Worker(Long id) {
-		this.id = id;
-	}
-	
-	public Long getId() {
-		return id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "worker_generator")
+    @SequenceGenerator(name = "worker_generator", sequenceName = "worker_seq", allocationSize = 1)
+    private long id;
 
-	public boolean isBooked() {
-		return booked;
-	}
+    @Column(name = "booked")
+    private boolean hasBookings;
 
-	public void setBooked(boolean booked) {
-		this.booked = booked;
-	}
+    @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    List<Job> bookedJobs;
+
+    public Worker() {
+    }
+
+    public Worker(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public boolean hasBookings() {
+        return hasBookings;
+    }
+
+    public void setHasBookings(boolean hasBookings) {
+        this.hasBookings = hasBookings;
+    }
+
+    public List<Job> getBookedJobs() {
+        return bookedJobs;
+    }
+
+    public void setBookedJobs(List<Job> bookedJobs) {
+        this.bookedJobs = bookedJobs;
+    }
 }

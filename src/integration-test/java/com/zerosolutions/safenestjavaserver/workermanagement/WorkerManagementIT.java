@@ -1,14 +1,13 @@
 package com.zerosolutions.safenestjavaserver.workermanagement;
 
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.Assert.*;
 
-import org.junit.Ignore;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Assert;
@@ -39,13 +38,22 @@ public class WorkerManagementIT {
 		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/getall", String.class);
 		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
 		List<Worker> workerList = this.objectMapper.readValue(responseEntity.getBody(), List.class);
-		assertThat(workerList, hasSize(2));
+		assertTrue(workerList.size() >= 3);
 	}
 
 	@Test
-	public void testWorkerBookingSuccessful() throws Exception{
-		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/book/1", String.class);
+	public void testGetOneWorker() throws Exception {
+		ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/2", String.class);
 		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
-		assertEquals("Worker booked successfully.", responseEntity.getBody());
+		Worker worker = this.objectMapper.readValue(responseEntity.getBody(), Worker.class);
+		assertEquals(Long.valueOf(2L), worker.getId());
+	}
+
+	@Test
+	public void testCreatingNewWorker() throws IOException {
+		ResponseEntity<String> responseEntity = this.restTemplate.postForEntity("/v1/worker/create", new Worker(), String.class);
+		Assert.assertEquals(200, responseEntity.getStatusCodeValue());
+		Worker worker = this.objectMapper.readValue(responseEntity.getBody(), Worker.class);
+		assertNotEquals(Long.valueOf(0), worker.getId());
 	}
 }

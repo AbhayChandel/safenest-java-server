@@ -12,7 +12,7 @@ jdk:
   - oraclejdk8
 
 script:
-  - 'if [[ "$TRAVIS_EVENT_TYPE" == "push" && "$TRAVIS_BRANCH" =~ ^feature.* ]]; then
+  - 'if [[ "$TRAVIS_EVENT_TYPE" == "push" && ("$TRAVIS_BRANCH" =~ ^feature.* || "$TRAVIS_BRANCH" =~ ^beautify.*) ]]; then
           mvn clean install;
       else
           mvn clean install -P test;

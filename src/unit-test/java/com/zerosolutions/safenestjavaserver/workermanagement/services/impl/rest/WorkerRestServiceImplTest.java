@@ -36,7 +36,7 @@ public class WorkerRestServiceImplTest {
         workers.add(new Worker(1L));
         workers.add(new Worker(2L));
         when(this.workerManagement.findAllWorkers()).thenReturn(workers);
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/getall")).andExpect(status().isOk())
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/")).andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 

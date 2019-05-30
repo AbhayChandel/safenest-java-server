@@ -2,11 +2,10 @@ package com.zerosolutions.safenestjavaserver.workermanagement.services.api.rest;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Worker;
+
 
 @RequestMapping("/v1/worker")
 public interface WorkerRestService {
@@ -14,7 +13,10 @@ public interface WorkerRestService {
 	@GetMapping("/getall")
 	public List<Worker> getAllWorkers();
 
-	@GetMapping("/book/{id}")
-	public String bookWorker(@PathVariable int id);
+	@GetMapping("/{id}")
+	public Worker getOneWorker(@PathVariable("id") long id);
+
+	@PostMapping("/create")
+	public Worker createWorker();
 
 }

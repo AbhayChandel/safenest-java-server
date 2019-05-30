@@ -1,15 +1,16 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.business.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -23,31 +24,36 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.repo
 @SpringBootTest
 public class WorkerManagementImplTest {
 
-	@Autowired
-	WorkerManagement workerManagement;
+    @Autowired
+    WorkerManagement workerManagement;
 
-	@MockBean
-	WorkerRepository workerRepository;
+    @MockBean
+    WorkerRepository workerRepository;
 
-	@Test
-	public void testGetAllWorkers() {
+    @Test
+    public void testGetAllWorkers() {
 
-		List<Worker> workers = new ArrayList<Worker>();
-		workers.add(new Worker(1L));
-		workers.add(new Worker(2L));
-		when(this.workerRepository.findAll()).thenReturn(workers);
-		List<Worker> workerList = workerManagement.getAllWorkers();
-		assertThat(workerList, hasSize(2));
-	}
+        List<Worker> workers = new ArrayList<Worker>();
+        workers.add(new Worker(1L));
+        workers.add(new Worker(2L));
+        when(this.workerRepository.findAll()).thenReturn(workers);
+        List<Worker> workerList = workerManagement.findAllWorkers();
+        assertThat(workerList, hasSize(2));
+    }
 
-	@Test
-	public void testWorkerBookedSuccessfully(){
-		Worker workerNotBooked = new Worker(1L);
-		Worker workerBooked = new Worker(1L);
-		workerBooked.setBooked(true);
-		when(this.workerRepository.getOne(1L)).thenReturn(workerNotBooked);
-		when(this.workerRepository.save(workerNotBooked)).thenReturn(workerBooked);
-		String message = workerManagement.bookWorker(1L);
-		assertEquals("Worker booked successfully.", message);
-	}
+    @Test
+    public void testFindWorkerById() {
+        Worker worker = new Worker(1L);
+        when(this.workerRepository.findById(1L)).thenReturn(Optional.of(worker));
+        assertEquals(Long.valueOf(1), workerManagement.findWorkerById(1L).getId());
+    }
+
+    @Test
+    public void testCreatingNewWorker() {
+        Worker returnedWorker = new Worker(5L);
+        when(this.workerRepository.save(ArgumentMatchers.any())).thenReturn(returnedWorker);
+        Worker worker = this.workerManagement.createWorker();
+        assertEquals(Long.valueOf(5), worker.getId());
+
+    }
 }

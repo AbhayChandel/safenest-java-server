@@ -1,6 +1,7 @@
-package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity;
+package com.zerosolutions.safenestjavaserver.jobmanagement.dataaccess.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Worker;
 
 import javax.persistence.*;
 

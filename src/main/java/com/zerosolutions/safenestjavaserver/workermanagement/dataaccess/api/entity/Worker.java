@@ -1,6 +1,7 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.zerosolutions.safenestjavaserver.jobmanagement.dataaccess.api.entity.Job;
 
 import javax.persistence.*;
 import java.util.List;

@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Job;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,6 @@ public class WorkerRepositoryTest {
 	@Test
 	public void testCreatingNewWorker(){
 		Worker worker = new Worker();
-		Job job = new Job(LocalDateTime.parse("2019-06-01T07:00:00"), LocalDateTime.parse("2019-06-02T19:00:00"));
-		List<Job> bookedJobs = new ArrayList<>();
-		bookedJobs.add(job);
-		worker.setBookedJobs(bookedJobs);
 		worker = workerRepository.save(worker);
 		assertNotEquals(Long.valueOf(0), worker.getId());
 	}
@@ -48,11 +43,6 @@ public class WorkerRepositoryTest {
 	@Test
 	public void testUpdateExistingWorker(){
 		Worker worker = workerRepository.findById(1L).get();
-		List<Job> bookedJobs = worker.getBookedJobs();
-		assertThat(bookedJobs, hasSize(0));
-		Job newJob = new Job(LocalDateTime.parse("2019-06-05T07:00:00"), LocalDateTime.parse("2019-06-06T19:00:00"));
-		bookedJobs.add(newJob);
-		worker.setBookedJobs(bookedJobs);
 		worker = workerRepository.save(worker);
 		assertThat(workerRepository.findById(1L).get().getBookedJobs(), hasSize(1));
 	}
@@ -71,19 +61,5 @@ public class WorkerRepositoryTest {
 		worker.setHasBookings(true);
 		worker = workerRepository.save(worker);
 		assertTrue(worker.hasBookings());
-	}
-
-	@Test
-	public void testGettingWorkerJobBookings(){
-		Worker worker = workerRepository.findById(2L).get();
-		List<Job> jobsBooked = worker.getBookedJobs();
-		assertThat(jobsBooked, hasSize(2));
-	}
-
-	@Test
-	public void testNoJobBookingsFound(){
-		Worker worker = workerRepository.findById(3L).get();
-		List<Job> jobsBooked = worker.getBookedJobs();
-		assertThat(jobsBooked, hasSize(0));
 	}
 }

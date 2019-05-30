@@ -41,13 +41,6 @@ public class WorkerRepositoryTest {
 	}
 
 	@Test
-	public void testUpdateExistingWorker(){
-		Worker worker = workerRepository.findById(1L).get();
-		worker = workerRepository.save(worker);
-		assertThat(workerRepository.findById(1L).get().getBookedJobs(), hasSize(1));
-	}
-
-	@Test
 	public void testDeletingWorker(){
 		Worker worker = workerRepository.findById(1L).get();
 		workerRepository.delete(worker);

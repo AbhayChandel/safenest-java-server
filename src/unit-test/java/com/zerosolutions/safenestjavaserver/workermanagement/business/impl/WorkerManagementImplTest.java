@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.zerosolutions.safenestjavaserver.workermanagement.common.error.exception.WorkerNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
@@ -46,6 +47,12 @@ public class WorkerManagementImplTest {
         Worker worker = new Worker(1L);
         when(this.workerRepository.findById(1L)).thenReturn(Optional.of(worker));
         assertEquals(Long.valueOf(1), workerManagement.findWorkerById(1L).getId());
+    }
+
+    @Test(expected = WorkerNotFoundException.class)
+    public void testWorkerNotFound() throws Exception {
+        when(this.workerRepository.findById(10L)).thenReturn(Optional.empty());
+        workerManagement.findWorkerById(10L);
     }
 
     @Test

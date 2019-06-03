@@ -14,7 +14,7 @@ public interface WorkerRestService {
 	public List<Worker> getAllWorkers();
 
 	@GetMapping("/{id}")
-	public Worker getOneWorker(@PathVariable("id") long id);
+	public Worker findWorkerById(@PathVariable("id") long id);
 
 	@PostMapping("/create")
 	public Worker createWorker();

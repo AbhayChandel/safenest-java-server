@@ -21,7 +21,7 @@ public class WorkerRestServiceImpl implements WorkerRestService {
 	}
 
 	@Override
-	public Worker getOneWorker(long id)
+	public Worker findWorkerById(long id)
 	{
 		Worker worker = workerManagement.findWorkerById(id);
 		return worker;

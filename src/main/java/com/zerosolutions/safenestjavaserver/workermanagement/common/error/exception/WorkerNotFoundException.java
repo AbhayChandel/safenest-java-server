@@ -2,7 +2,7 @@ package com.zerosolutions.safenestjavaserver.workermanagement.common.error.excep
 
 public class WorkerNotFoundException extends RuntimeException {
 
-    private long workerId;
+    private final long workerId;
 
     public WorkerNotFoundException(long workerId){
         this.workerId = workerId;

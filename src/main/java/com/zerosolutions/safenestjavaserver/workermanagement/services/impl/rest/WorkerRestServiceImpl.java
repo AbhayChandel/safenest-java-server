@@ -3,6 +3,7 @@ package com.zerosolutions.safenestjavaserver.workermanagement.services.impl.rest
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.zerosolutions.safenestjavaserver.workermanagement.business.api.WorkerManagement;
@@ -21,7 +22,7 @@ public class WorkerRestServiceImpl implements WorkerRestService {
 	}
 
 	@Override
-	public Worker getOneWorker(long id)
+	public Worker findWorkerById(long id)
 	{
 		Worker worker = workerManagement.findWorkerById(id);
 		return worker;

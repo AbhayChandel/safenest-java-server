@@ -1,9 +1,9 @@
 package com.zerosolutions.safenestjavaserver.workermanagement.business.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import com.zerosolutions.safenestjavaserver.workermanagement.common.error.exception.WorkerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +25,10 @@ public class WorkerManagementImpl implements WorkerManagement {
     @Override
     public Worker findWorkerById(long id) {
         Optional<Worker> worker = workerRepository.findById(id);
-        return worker.orElse(null);
-        //TO-DO Throw CustomerNotFoundException;
+        if(!worker.isPresent()) {
+            throw new WorkerNotFoundException(id);
+        }
+        return worker.get();
     }
 
     @Override

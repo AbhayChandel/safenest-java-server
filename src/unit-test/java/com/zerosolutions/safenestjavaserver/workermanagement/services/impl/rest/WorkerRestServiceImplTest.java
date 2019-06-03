@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.ArrayList;
 import java.util.List;
 
+import com.zerosolutions.safenestjavaserver.workermanagement.common.error.exception.WorkerNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,18 @@ public class WorkerRestServiceImplTest {
     }
 
     @Test
-    public void testGetOneWorker() throws Exception {
+    public void testFindWorkerById() throws Exception {
         when(this.workerManagement.findWorkerById(1L)).thenReturn(new Worker(1L));
         this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/1")).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"));
+    }
+
+    @Test
+    public void testWorkerNotFound() throws Exception {
+        when(this.workerManagement.findWorkerById(1L)).thenThrow(new WorkerNotFoundException(1L));
+        this.mockMvc.perform(MockMvcRequestBuilders.get("/v1/worker/1")).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.errorCause").value("Worker with id 1 not found"))
+                .andExpect(jsonPath("$.errorFix").value("Choose a different worker"));
     }
 
     @Test

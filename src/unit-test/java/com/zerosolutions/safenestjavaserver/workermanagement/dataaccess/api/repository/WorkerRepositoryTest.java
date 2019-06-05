@@ -34,7 +34,7 @@ public class WorkerRepositoryTest {
 	}
 
 	@Test
-	public void testCreatingNewWorker(){
+	public void testCreatingWorker(){
 		Worker worker = new Worker();
 		worker = workerRepository.save(worker);
 		assertNotEquals(Long.valueOf(0), worker.getId());

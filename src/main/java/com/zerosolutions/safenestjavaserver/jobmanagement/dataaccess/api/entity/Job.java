@@ -16,9 +16,10 @@ public class Job {
     @SequenceGenerator(name = "job_generator", sequenceName = "job_seq", allocationSize = 1)
     private int id;
 
-    public Job(LocalDateTime jobStartDateTime, LocalDateTime jobEndDateTime){
-        this.jobStartDateTime = jobStartDateTime;
-        this.jobEndDateTime = jobEndDateTime;
+    public Job(LocalDateTime startDateTime, LocalDateTime endDateTime, Worker worker){
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+        this.worker = worker;
     }
 
     public Job(){}
@@ -29,25 +30,25 @@ public class Job {
     private Worker worker;
 
     @Column(name = "start_datetime")
-    private LocalDateTime jobStartDateTime;
+    private LocalDateTime startDateTime;
 
     @Column(name = "end_datetime")
-    private LocalDateTime jobEndDateTime;
+    private LocalDateTime endDateTime;
 
-    public LocalDateTime getJobStartDateTime() {
-        return jobStartDateTime;
+    public LocalDateTime getStartDateTime() {
+        return startDateTime;
     }
 
-    public void setJobStartDateTime(LocalDateTime jobStartDateTime) {
-        this.jobStartDateTime = jobStartDateTime;
+    public void setStartDateTime(LocalDateTime startDateTime) {
+        this.startDateTime = startDateTime;
     }
 
     public LocalDateTime getEndDateTime() {
-        return jobEndDateTime;
+        return endDateTime;
     }
 
     public void setEndDateTime(LocalDateTime endDateTime) {
-        this.jobEndDateTime = endDateTime;
+        this.endDateTime = endDateTime;
     }
 
     public int getId() {

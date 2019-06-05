@@ -65,7 +65,7 @@ public class WorkerManagementIT {
     }
 
     @Test
-    public void testCreatingNewWorker() throws IOException {
+    public void testCreatingWorker() throws IOException {
         ResponseEntity<String> responseEntity = this.restTemplate.postForEntity("/v1/worker/create", new Worker(), String.class);
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
         Worker worker = this.objectMapper.readValue(responseEntity.getBody(), Worker.class);

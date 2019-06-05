@@ -6,9 +6,9 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.enti
 
 public interface WorkerManagement {
 
-	public List<Worker> findAllWorkers();
+	List<Worker> findAllWorkers();
 
-    public Worker findWorkerById(long id);
+    Worker findWorkerById(long id);
 
-    public Worker createWorker();
+    Worker createWorker();
 }

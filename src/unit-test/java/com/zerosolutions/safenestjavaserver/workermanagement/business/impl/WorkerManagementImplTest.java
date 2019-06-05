@@ -34,7 +34,7 @@ public class WorkerManagementImplTest {
     @Test
     public void testGetAllWorkers() {
 
-        List<Worker> workers = new ArrayList<Worker>();
+        List<Worker> workers = new ArrayList<>();
         workers.add(new Worker(1L));
         workers.add(new Worker(2L));
         when(this.workerRepository.findAll()).thenReturn(workers);
@@ -50,7 +50,7 @@ public class WorkerManagementImplTest {
     }
 
     @Test(expected = WorkerNotFoundException.class)
-    public void testWorkerNotFound() throws Exception {
+    public void testWorkerNotFound() {
         when(this.workerRepository.findById(10L)).thenReturn(Optional.empty());
         workerManagement.findWorkerById(10L);
     }

@@ -12,8 +12,12 @@ import com.zerosolutions.safenestjavaserver.workermanagement.services.api.rest.W
 @RestController
 public class WorkerRestServiceImpl implements WorkerRestService {
 
+	private final WorkerManagement workerManagement;
+
 	@Autowired
-	WorkerManagement workerManagement;
+	public WorkerRestServiceImpl(WorkerManagement workerManagement) {
+		this.workerManagement = workerManagement;
+	}
 
 	@Override
 	public List<Worker> getAllWorkers(){
@@ -23,8 +27,7 @@ public class WorkerRestServiceImpl implements WorkerRestService {
 	@Override
 	public Worker findWorkerById(long id)
 	{
-		Worker worker = workerManagement.findWorkerById(id);
-		return worker;
+		return workerManagement.findWorkerById(id);
 	}
 
 	@Override

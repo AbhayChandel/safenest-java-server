@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-
 @RestController
 public class JobRestServiceImpl implements JobRestService {
 
+    private final JobManagement jobManagement;
+
     @Autowired
-    JobManagement jobManagement;
+    public JobRestServiceImpl(JobManagement jobManagement) {
+        this.jobManagement = jobManagement;
+    }
 
     @Override
     public Job createJob(@RequestParam("jobStartDateTime") String jobStartDateTime, @RequestParam("jobEndDateTime") String jobEndDateTime, @RequestParam("workerId") long workerId) {

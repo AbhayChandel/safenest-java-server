@@ -14,8 +14,12 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.repo
 @Component
 public class WorkerManagementImpl implements WorkerManagement {
 
+    private final WorkerRepository workerRepository;
+
     @Autowired
-    WorkerRepository workerRepository;
+    public WorkerManagementImpl(WorkerRepository workerRepository) {
+        this.workerRepository = workerRepository;
+    }
 
     @Override
     public List<Worker> findAllWorkers() {

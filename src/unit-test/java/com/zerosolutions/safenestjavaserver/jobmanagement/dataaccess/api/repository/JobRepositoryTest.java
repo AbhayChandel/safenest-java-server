@@ -23,7 +23,7 @@ public class JobRepositoryTest {
 
     @Test
     public void testCreatingJob() {
-        Job job = jobRepository.save(new Job(LocalDateTime.of(LocalDate.of(2019, 06, 12), LocalTime.of(20, 0)), LocalDateTime.of(LocalDate.of(2019, 06, 14), LocalTime.of(20, 0)), new Worker(10L)));
+        Job job = jobRepository.save(new Job(LocalDateTime.of(LocalDate.of(2019, 6, 12), LocalTime.of(20, 0)), LocalDateTime.of(LocalDate.of(2019, 6, 14), LocalTime.of(20, 0)), new Worker(10L)));
         assertTrue(job.getId() > 0);
     }
 }

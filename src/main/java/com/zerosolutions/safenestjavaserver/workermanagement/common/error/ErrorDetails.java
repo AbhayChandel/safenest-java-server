@@ -2,9 +2,9 @@ package com.zerosolutions.safenestjavaserver.workermanagement.common.error;
 
 public class ErrorDetails {
 
-    private int errorCode;
-    private String errorCause;
-    private String errorFix;
+    private final int errorCode;
+    private final String errorCause;
+    private final String errorFix;
 
     public ErrorDetails(int errorCode, String errorCause, String errorFix){
         this.errorCode = errorCode;

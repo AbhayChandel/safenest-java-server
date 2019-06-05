@@ -11,12 +11,12 @@ import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.enti
 public interface WorkerRestService {
 
 	@GetMapping("/")
-	public List<Worker> getAllWorkers();
+    List<Worker> getAllWorkers();
 
 	@GetMapping("/{id}")
-	public Worker findWorkerById(@PathVariable("id") long id);
+    Worker findWorkerById(@PathVariable("id") long id);
 
 	@PostMapping("/create")
-	public Worker createWorker();
+    Worker createWorker();
 
 }

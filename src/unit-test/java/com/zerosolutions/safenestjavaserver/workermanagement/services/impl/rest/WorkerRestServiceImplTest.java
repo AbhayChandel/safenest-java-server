@@ -33,7 +33,7 @@ public class WorkerRestServiceImplTest {
 
     @Test
     public void testFindAllWorkers() throws Exception {
-        List<Worker> workers = new ArrayList<Worker>();
+        List<Worker> workers = new ArrayList<>();
         workers.add(new Worker(1L));
         workers.add(new Worker(2L));
         when(this.workerManagement.findAllWorkers()).thenReturn(workers);

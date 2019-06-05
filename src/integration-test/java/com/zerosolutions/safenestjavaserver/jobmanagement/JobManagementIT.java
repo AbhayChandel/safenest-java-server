@@ -2,7 +2,6 @@ package com.zerosolutions.safenestjavaserver.jobmanagement;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zerosolutions.safenestjavaserver.workermanagement.dataaccess.api.entity.Worker;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,7 +36,7 @@ public class JobManagementIT {
 
     @Test
     public void testCreatingJob() throws IOException {
-        HttpEntity<MultiValueMap<String, String>> httpEntity = getHttpRequest("2019-06-10T08:00", "2019-06-12T20:00", "1");
+        HttpEntity<MultiValueMap<String, String>> httpEntity = getHttpRequest();
         ResponseEntity<String> responseEntity = this.restTemplate.postForEntity("/v1/job/create", httpEntity, String.class);
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
         JsonNode root = objectMapper.readTree(responseEntity.getBody());
@@ -45,13 +44,13 @@ public class JobManagementIT {
         assertTrue(jobId.asLong()>0);
     }
 
-    private HttpEntity<MultiValueMap<String, String>> getHttpRequest(String jobStartDateTime, String jobEndDateTime, String workerId){
+    private HttpEntity<MultiValueMap<String, String>> getHttpRequest(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, String> params= new LinkedMultiValueMap<String, String>();
-        params.add("jobStartDateTime", jobStartDateTime);
-        params.add("jobEndDateTime", jobEndDateTime);
-        params.add("workerId", workerId);
-        return new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        MultiValueMap<String, String> params= new LinkedMultiValueMap<>();
+        params.add("jobStartDateTime", "2019-06-10T08:00");
+        params.add("jobEndDateTime", "2019-06-12T20:00");
+        params.add("workerId", "1");
+        return new HttpEntity<>(params, headers);
     }
 }

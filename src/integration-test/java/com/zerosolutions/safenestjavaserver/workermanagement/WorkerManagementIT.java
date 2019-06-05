@@ -3,14 +3,12 @@ package com.zerosolutions.safenestjavaserver.workermanagement;
 import static org.junit.Assert.*;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.zerosolutions.safenestjavaserver.workermanagement.common.error.ErrorDetails;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
 import java.io.IOException;
-import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -39,16 +37,16 @@ public class WorkerManagementIT {
     public void testGetAllWorkers() throws Exception {
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/", String.class);
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
-        List<Worker> workerList = this.objectMapper.readValue(responseEntity.getBody(), List.class);
-        assertTrue(workerList.size() >= 3);
+        JsonNode root = objectMapper.readTree(responseEntity.getBody());
+        assertTrue(root.size() > 0);
     }
 
     @Test
     public void testGetWorkerById() throws Exception {
         ResponseEntity<String> responseEntity = this.restTemplate.getForEntity("/v1/worker/2", String.class);
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
-        Worker worker = this.objectMapper.readValue(responseEntity.getBody(), Worker.class);
-        assertEquals(Long.valueOf(2L), worker.getId());
+        JsonNode root = objectMapper.readTree(responseEntity.getBody());
+        assertEquals(2L, root.path("id").asLong());
     }
 
     @Test
@@ -68,7 +66,7 @@ public class WorkerManagementIT {
     public void testCreatingWorker() throws IOException {
         ResponseEntity<String> responseEntity = this.restTemplate.postForEntity("/v1/worker/create", new Worker(), String.class);
         Assert.assertEquals(200, responseEntity.getStatusCodeValue());
-        Worker worker = this.objectMapper.readValue(responseEntity.getBody(), Worker.class);
-        assertNotEquals(Long.valueOf(0), worker.getId());
+        JsonNode root = objectMapper.readTree(responseEntity.getBody());
+        assertTrue(root.path("id").asLong() > 0);
     }
 }

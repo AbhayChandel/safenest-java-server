@@ -20,6 +20,7 @@ public class Worker {
 
     @OneToMany(mappedBy = "worker", cascade = CascadeType.ALL)
     @JsonManagedReference
+    private
     List<Job> bookedJobs;
 
     public Worker() {

@@ -55,15 +55,8 @@ public class Job {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Worker getWorker() {
         return worker;
     }
 
-    public void setWorker(Worker worker) {
-        this.worker = worker;
-    }
 }

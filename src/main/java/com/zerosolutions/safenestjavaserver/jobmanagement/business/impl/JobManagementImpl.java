@@ -13,11 +13,15 @@ import java.time.LocalDateTime;
 @Component
 public class JobManagementImpl implements JobManagement {
 
-    @Autowired
-    JobRepository jobRepository;
+    private final JobRepository jobRepository;
+
+    private final WorkerManagement workerManagement;
 
     @Autowired
-    WorkerManagement workerManagement;
+    public JobManagementImpl(WorkerManagement workerManagement, JobRepository jobRepository) {
+        this.workerManagement = workerManagement;
+        this.jobRepository = jobRepository;
+    }
 
     @Override
     public Job createJob(String jobStartDate, String jobEndDate, Long workerId) {
